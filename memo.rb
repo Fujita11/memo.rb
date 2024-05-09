@@ -25,12 +25,11 @@ def main
 
     if choice == '1'
       create_new_file
-      break
     elsif choice == '2'
       edit_existing_file
-      break
     else
       puts "1か2を入力してください"
+      next
     end
   end
 end
