@@ -2,9 +2,16 @@ require 'csv'
 
 def create_new_file
   puts "新規ファイル名を入力してください:"
-  filename = gets.chomp
-  CSV.open(filename, 'w') do |csv|
+  filename = gets.chomp 
+  puts "ファイルに追加するデータを入力してください。空行を入力して終了します。"
+  data = ""
+  loop do
+    input = gets.chomp 
+    data << input + "\n" 
+    break if input.empty? 
   end
+  File.write(filename, data.strip) 
+  puts "ファイルを作成しました。"  
 end
 
 def edit_existing_file
