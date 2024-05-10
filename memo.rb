@@ -2,39 +2,48 @@ require 'csv'
 
 def create_new_file
   puts "新規ファイル名を入力してください:"
-  filename = gets.chomp 
+  filename = gets&.chomp
+  return if filename.nil? || filename.empty?
+
   puts "ファイルに追加するデータを入力してください。空行を入力して終了します。"
   data = ""
   loop do
-    input = gets.chomp 
-    data << input + "\n" 
-    break if input.empty? 
+    input = gets&.chomp
+    break if input.nil? 
+
+    data << input + "\n"
   end
-  File.write(filename, data.strip) 
-  puts "ファイルを作成しました。"  
+  File.write(filename, data.strip)
+  puts "ファイルを作成しました。"
 end
 
 def edit_existing_file
   puts "編集するファイル名を入力してください:"
-  filename = gets.chomp 
+  filename = gets&.chomp
+  return if filename.nil? || filename.empty?
+
   puts "追加するデータを入力してください (データ1,データ2,データ3):"
   data = ""
   loop do
-    input = gets.chomp 
-    data << input + "\n"  
-    break if input.empty?  
+    input = gets&.chomp
+    break if input.nil? 
+
+    data << input + "\n"
   end
   CSV.open(filename, 'a') do |csv|
-    csv << data.strip.split(',')  
+    csv << data.strip.split(',')
   end
-  puts "データをファイルに追加しました。"  
+  puts "データをファイルに追加しました。"
 end
 
-def main  
+def main
   loop do
     puts "1. 新規ファイルを作成"
     puts "2. 既存のファイルを編集"
-    choice = gets.chomp
+    puts "終了する場合は Control+D を入力してください"
+    choice = gets&.chomp
+
+    break if choice.nil?
 
     if choice == '1'
       create_new_file
