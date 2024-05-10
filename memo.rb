@@ -9,12 +9,18 @@ end
 
 def edit_existing_file
   puts "編集するファイル名を入力してください:"
-  filename = gets.chomp
+  filename = gets.chomp 
   puts "追加するデータを入力してください (データ1,データ2,データ3):"
-  data = gets.chomp.split(',')
-  CSV.open(filename, 'a') do |csv|
-    csv << data
+  data = ""
+  loop do
+    input = gets.chomp 
+    data << input + "\n"  
+    break if input.empty?  
   end
+  CSV.open(filename, 'a') do |csv|
+    csv << data.strip.split(',')  
+  end
+  puts "データをファイルに追加しました。"  
 end
 
 def main  
