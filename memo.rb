@@ -1,9 +1,15 @@
 require 'csv'
 
+CSV.open('Memo.csv','w') do |csv|
+  csv << ["id","name","age"]
+end
+
 def create_new_file
   puts "新規ファイル名を入力してください:"
   filename = gets&.chomp
   return if filename.nil? || filename.empty?
+
+  filename += '.csv' unless filename.downcase.end_with?('.csv')
 
   puts "ファイルに追加するデータを入力してください。空行を入力して終了します。"
   data = ""
@@ -21,6 +27,8 @@ def edit_existing_file
   puts "編集するファイル名を入力してください:"
   filename = gets&.chomp
   return if filename.nil? || filename.empty?
+
+  filename += '.csv' unless filename.downcase.end_with?('.csv')
 
   puts "追加するデータを入力してください (データ1,データ2,データ3):"
   data = ""
